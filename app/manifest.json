@@ -1,0 +1,19 @@
+{
+  "name": "jira-extension",
+  "version": "0.0.1",
+  "description": "jira extension",
+  "manifest_version": 2,
+  "permissions": ["activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["*://*/*/browse/*"],
+      "js": ["content-script.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "icons": {
+    "16": "fav.png",
+    "48": "fav.png"
+  },
+  "web_accessible_resources": []
+}
