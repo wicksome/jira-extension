@@ -11,17 +11,42 @@ const createButton = title => {
   $span.innerHTML = title;
 
   $a.appendChild($span);
-
   return $a;
 };
 
+/**
+ * Update text in button.
+ * @param {DOMElement} $button
+ * @param {String} title
+ * @returns before title text
+ */
+const updateButtonTitle = ($button, title) => {
+  const old = $button.firstChild.innerHTML;
+  $button.firstChild.innerHTML = title;
+  return old;
+};
+
+/**
+ * Copy to clipboard.
+ * @param {String} text
+ * @returns {Boolean} copy status
+ */
 const copyToClipboard = str => {
   const el = document.createElement("textarea");
   el.value = str;
   document.body.appendChild(el);
   el.select();
-  document.execCommand("copy");
+  const state = document.execCommand("copy");
   document.body.removeChild(el);
+  return state;
+};
+
+const getTemplate = () => {
+  const title = document.getElementById("summary-val").textContent;
+  const key = document.getElementById("key-val").textContent;
+
+  // return `[${key}] ${title}`;
+  return document.title.split(" - ")[0];
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -30,10 +55,14 @@ document.addEventListener("DOMContentLoaded", () => {
   $button.addEventListener("click", event => {
     event.preventDefault();
 
-    const title = document.getElementById("summary-val").textContent;
-    const key = document.getElementById("key-val").textContent;
+    const template = getTemplate();
 
-    copyToClipboard(`[${key}] ${title}`);
+    if (copyToClipboard(template)) {
+      const oldTitle = updateButtonTitle($button, "✅성공");
+      setTimeout(() => {
+        updateButtonTitle($button, oldTitle);
+      }, 500);
+    }
   });
 
   document.getElementById("opsbar-jira.issue.tools").prepend($button);
