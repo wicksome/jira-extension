@@ -3,12 +3,17 @@
   "version": "0.0.1",
   "description": "jira extension",
   "manifest_version": 2,
-  "permissions": ["*://*/*/browse/*"],
+  "permissions": ["*://*/*/browse/*", "https://oss.navercorp.com/*"],
   "content_scripts": [
     {
       "matches": ["*://*/*/browse/*"],
       "js": ["content-script.js"],
       "css": ["style.css"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://oss.navercorp.com/*"],
+      "js": ["convert-issue-to-link.js"],
       "run_at": "document_start"
     }
   ],
