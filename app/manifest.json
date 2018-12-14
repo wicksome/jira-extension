@@ -12,7 +12,11 @@
       "run_at": "document_start"
     },
     {
-      "matches": ["https://oss.navercorp.com/*"],
+      "matches": [
+        "https://oss.navercorp.com/*/*/pull/*",
+        "https://oss.navercorp.com/*/*/issues/*",
+        "http://wiki.navercorp.com/pages/viewpage.action?pageId=324967255"
+      ],
       "js": ["convert-issue-to-link.js"],
       "run_at": "document_start"
     }
